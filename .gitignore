@@ -1,6 +1,7 @@
 # Папки
 node_modules/
 dist/
+pass.js
 
 # Файлы
 .env
