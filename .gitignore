@@ -1,0 +1,28 @@
+# Папки
+node_modules/
+dist/
+pass.js
+
+# Файлы
+.env
+.DS_Store
+
+# Логи и временные файлы
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.pid
+*.seed
+*.pid.lock
+*.code-workspace
+
+# Конфигурационные файлы
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
