@@ -3,7 +3,6 @@ import fetch from 'node-fetch';
 import { createClient } from 'redis';
 import { CronJob } from 'cron';
 import 'dotenv/config';
-
 const client = createClient(process.env.REDIS_URL);
 
 await client.connect();
