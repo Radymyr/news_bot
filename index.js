@@ -2,7 +2,6 @@ import { Bot } from 'grammy';
 import fetch from 'node-fetch';
 import { createClient } from 'redis';
 import { CronJob } from 'cron';
-import { TOKEN, API_KEY } from './pass.js';
 
 const client = createClient();
 await client.connect();
