@@ -9,6 +9,7 @@ await client.connect();
 
 client.on('error', (err) => console.log('Redis Client Error', err));
 
+console.log(process.env.TOKEN);
 const bot = new Bot(process.env.TOKEN);
 const chatId = '-1002086164925';
 const subscribe = 'https://t.me/YaNewsUkraine';
