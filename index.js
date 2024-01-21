@@ -9,10 +9,10 @@ await client.connect();
 
 client.on('error', (err) => console.log('Redis Client Error', err));
 
-const bot = new Bot(TOKEN);
+const bot = new Bot(process.env.TOKEN);
 const chatId = '-1002086164925';
 const subscribe = 'https://t.me/YaNewsUkraine';
-const URL = `https://gnews.io/api/v4/top-headlines?category=general&lang=uk&apikey=${API_KEY}`;
+const URL = `https://gnews.io/api/v4/top-headlines?category=general&lang=uk&apikey=${process.env.API_KEY}`;
 
 const dataFetch = async (url) => {
   try {
