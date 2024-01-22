@@ -12,9 +12,6 @@ await client.connect({ lazyConnect: true });
 
 client.on('error', (err) => console.log('Redis Client Error', err));
 
-console.log(process.env.TOKEN);
-console.log(process.env.API_KEY);
-
 const bot = new Bot(process.env.TOKEN);
 
 const chatId = '-1002086164925';
