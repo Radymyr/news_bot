@@ -97,15 +97,9 @@ const updateNews = async () => {
   }
 };
 
-process.on('SIGINT', async () => {
-  console.log('Received SIGINT. Closing Redis connection...');
-  await client.quit();
-  process.exit();
-});
-
 console.log('Before job instantiation');
 
-const job = new CronJob('0 */1 * * * *', async function () {
+const job = new CronJob('0 */30 * * * *', async function () {
   console.log('Running scheduled job...');
   await updateNews();
 });
