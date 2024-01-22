@@ -13,7 +13,7 @@ client.on('error', (err) => console.log('Redis Client Error', err));
 
 const bot = new Bot(process.env.TOKEN);
 const PORT = process.env.PORT || 3000;
-bot.start(PORT);
+bot.start({ port: PORT });
 
 const chatId = '-1002086164925';
 const subscribe = 'https://t.me/YaNewsUkraine';
