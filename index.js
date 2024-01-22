@@ -12,6 +12,9 @@ await client.connect({ lazyConnect: true });
 client.on('error', (err) => console.log('Redis Client Error', err));
 
 const bot = new Bot(process.env.TOKEN);
+const PORT = process.env.PORT || 3000;
+bot.start({ port: PORT });
+
 const chatId = '-1002086164925';
 const subscribe = 'https://t.me/YaNewsUkraine';
 const URL = `https://gnews.io/api/v4/top-headlines?category=general&lang=uk&apikey=${process.env.API_KEY}`;
