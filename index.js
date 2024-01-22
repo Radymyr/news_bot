@@ -94,11 +94,11 @@ const updateNews = async () => {
   }
 };
 
-process.on('SIGINT', async () => {
-  console.log('Received SIGINT. Closing Redis connection...');
-  await client.quit();
-  process.exit();
-});
+// process.on('SIGINT', async () => {
+//   console.log('Received SIGINT. Closing Redis connection...');
+//   await client.quit();
+//   process.exit();
+// });
 
 console.log('Before job instantiation');
 
