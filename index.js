@@ -4,7 +4,9 @@ import { createClient } from 'redis';
 import { CronJob } from 'cron';
 import 'dotenv/config';
 
-const client = createClient({ url: process.env.REDIS_URL });
+const client = createClient({
+  url: process.env.REDIS_URL || 'redis://localhost:6379',
+});
 await client.connect();
 
 client.on('error', (err) => console.log('Redis Client Error', err));
