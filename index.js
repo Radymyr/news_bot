@@ -5,15 +5,11 @@ import { CronJob } from 'cron';
 import 'dotenv/config';
 
 const client = createClient({
-  url: process.env.REDISCLOUD_URL || 'redis://localhost:6379',
+  url: process.env.REDISCLOUD_URL,
 });
-await client.connect();
+await client.connect({ lazyConnect: true });
 
 client.on('error', (err) => console.log('Redis Client Error', err));
-
-console.log('TOKEN:', process.env.TOKEN);
-console.log('REDISCLOUD_URL:', process.env.REDISCLOUD_URL);
-console.log('API_KEY:', process.env.API_KEY);
 
 const bot = new Bot(process.env.TOKEN);
 const chatId = '-1002086164925';
@@ -35,27 +31,38 @@ const dataFetch = async (url) => {
 };
 
 const saveToRedis = async (key, data) => {
-  await client.set(key, JSON.stringify(data));
+  try {
+    await client.set(key, JSON.stringify(data));
+  } catch (error) {
+    console.error('Error saving to Redis:', error.message);
+  }
 };
 
 const getFromRedis = async (key) => {
-  const data = await client.get(key);
-  return JSON.parse(data);
+  try {
+    const data = await client.get(key);
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error getting from Redis:', error.message);
+  }
 };
 
 const sendToTelegramChannel = async (chatId, articles) => {
   console.log('articles:', articles);
+  try {
+    for (const article of articles) {
+      const caption = `
+      <b>${article.title}</b>\n\n${article.description} <u><a href="${article.url}">Детальніше...</a></u>
+      \n\n<b><a href="${subscribe}">ПІДПИСАТИСЯ⬇️⬇️⬇️
+      </a></b>\n`;
 
-  for (const article of articles) {
-    const caption = `
-    <b>${article.title}</b>\n\n${article.description} <u><a href="${article.url}">Детальніше...</a></u>
-    \n\n<b><a href="${subscribe}">ПІДПИСАТИСЯ⬇️⬇️⬇️
-    </a></b>\n`;
-
-    await bot.api.sendPhoto(chatId, article.image, {
-      caption,
-      parse_mode: 'HTML',
-    });
+      await bot.api.sendPhoto(chatId, article.image, {
+        caption,
+        parse_mode: 'HTML',
+      });
+    }
+  } catch (error) {
+    console.error('Error sending to Telegram:', error.message);
   }
 };
 
@@ -92,7 +99,7 @@ process.on('SIGINT', async () => {
 
 console.log('Before job instantiation');
 
-const job = new CronJob('0 */30 * * * *', async function () {
+const job = new CronJob('0 */1 * * * *', async function () {
   console.log('Running scheduled job...');
   await updateNews();
 });
