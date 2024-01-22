@@ -4,7 +4,7 @@ import { createClient } from 'redis';
 import { CronJob } from 'cron';
 import 'dotenv/config';
 
-const express = require('express');
+import express from 'express';
 const app = express();
 app.listen(process.env.PORT || 3000);
 
