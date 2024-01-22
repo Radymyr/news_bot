@@ -12,7 +12,7 @@ await client.connect();
 client.on('error', (err) => console.log('Redis Client Error', err));
 
 console.log('TOKEN:', process.env.TOKEN);
-console.log('REDIS_URL:', process.env.REDIS_URL);
+console.log('REDISCLOUD_URL:', process.env.REDISCLOUD_URL);
 console.log('API_KEY:', process.env.API_KEY);
 
 const bot = new Bot(process.env.TOKEN);
