@@ -8,7 +8,7 @@ const client = createClient({
   url: process.env.REDISCLOUD_URL,
   no_ready_check: true,
 });
-await client.connect({ lazyConnect: true });
+await client.connect();
 
 client.on('error', (err) => console.log('Redis Client Error', err));
 
