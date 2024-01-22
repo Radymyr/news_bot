@@ -6,6 +6,7 @@ import 'dotenv/config';
 
 const client = createClient({
   url: process.env.REDISCLOUD_URL,
+  no_ready_check: true,
 });
 await client.connect({ lazyConnect: true });
 
@@ -105,7 +106,7 @@ process.on('SIGINT', async () => {
 
 console.log('Before job instantiation');
 
-const job = new CronJob('0 */15 * * * *', async function () {
+const job = new CronJob('0 */1 * * * *', async function () {
   console.log('Running scheduled job...');
   await updateNews();
 });
