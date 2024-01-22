@@ -4,10 +4,10 @@ import { createClient } from 'redis';
 import { CronJob } from 'cron';
 import 'dotenv/config';
 
-const client = createClient({
-  url: process.env.REDISCLOUD_URL,
+const client = createClient(process.env.REDISCLOUD_URL, {
+  no_ready_check: true,
 });
-await client.connect({ lazyConnect: true });
+await client.connect();
 
 client.on('error', (err) => console.log('Redis Client Error', err));
 
