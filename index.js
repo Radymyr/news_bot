@@ -11,6 +11,9 @@ await client.connect({ lazyConnect: true });
 
 client.on('error', (err) => console.log('Redis Client Error', err));
 
+console.log(process.env.TOKEN);
+console.log(process.env.API_KEY);
+
 const bot = new Bot(process.env.TOKEN);
 const PORT = process.env.PORT || 3000;
 bot.start({ port: PORT });
@@ -93,6 +96,12 @@ const updateNews = async () => {
     console.error('Error processing news command:', error.message);
   }
 };
+
+process.on('SIGINT', async () => {
+  console.log('Received SIGINT. Closing Redis connection...');
+  await client.quit();
+  process.exit();
+});
 
 console.log('Before job instantiation');
 
