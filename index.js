@@ -16,8 +16,6 @@ console.log(process.env.TOKEN);
 console.log(process.env.API_KEY);
 
 const bot = new Bot(process.env.TOKEN);
-const PORT = process.env.PORT || 3000;
-bot.start({ port: PORT });
 
 const chatId = '-1002086164925';
 const subscribe = 'https://t.me/YaNewsUkraine';
