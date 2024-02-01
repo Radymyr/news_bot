@@ -100,7 +100,7 @@ const updateNews = async () => {
 console.log('Before job instantiation');
 
 const job = new CronJob('0 */30 9-23 * * *', async function () {
-  console.log('Running scheduled job...');
+  console.log(`Running scheduled job...${new Date()}`);
   await updateNews();
 });
 console.log('After job instantiation');
