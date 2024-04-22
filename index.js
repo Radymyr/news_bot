@@ -18,11 +18,11 @@ client.on('error', (err) => console.log('Redis Client Error', err));
 
 const bot = new Bot(process.env.TOKEN);
 
-const chatId = '-1002086164925';
+const chatId = process.env.CHAT_ID;
 const subscribe = 'https://t.me/YaNewsUkraine';
 const URL = `https://gnews.io/api/v4/top-headlines?category=general&lang=uk&apikey=${process.env.API_KEY}`;
 
-const dataFetch = async (url) => {
+const fetchNewsData = async (url) => {
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -30,6 +30,7 @@ const dataFetch = async (url) => {
     }
 
     const data = await response.json();
+
     return data;
   } catch (error) {
     console.error('Error fetching data:', error.message);
@@ -47,6 +48,7 @@ const saveToRedis = async (key, data) => {
 const getFromRedis = async (key) => {
   try {
     const data = await client.get(key);
+
     return JSON.parse(data);
   } catch (error) {
     console.error('Error getting from Redis:', error.message);
@@ -74,7 +76,7 @@ const sendToTelegramChannel = async (chatId, articles) => {
 
 const updateNews = async () => {
   try {
-    const allNews = await dataFetch(URL);
+    const allNews = await fetchNewsData(URL);
     const { articles } = allNews;
     const key = 'news';
 
